@@ -1,0 +1,9 @@
+fastapi==0.115.0
+uvicorn==0.30.6
+boto3==1.34.149
+opencv-python==4.10.0.84
+python-multipart==0.0.9
+redis==5.0.8
+python-dotenv==1.0.1
+pytest==8.3.2
+loguru==0.7.2
