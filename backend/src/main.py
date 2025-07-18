@@ -1,5 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import Response
+from fastapi.middleware.cors import CORSMiddleware
 from src.ocr.textract import TextractClient
 from src.pii.detection import PIIDetector
 from src.masking.image import ImageMasker
@@ -7,6 +8,15 @@ from loguru import logger
 import base64
 
 app = FastAPI(title="PII Masking API")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Allow frontend origin
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
 
 @app.post("/upload")
 async def upload_image(file: UploadFile = File(...), mask_type: str = "rectangle"):
