@@ -31,9 +31,15 @@ async def upload_image(file: UploadFile = File(...), mask_type: str = "rectangle
         textract_client = TextractClient()
         blocks = await textract_client.analyze_document(image_bytes)
 
+        # Extract text with Tesseract for Hindi and Tamil
+        hindi_lines = textract_client.extract_text_with_tesseract(image_bytes, "hin")
+        tamil_lines = textract_client.extract_text_with_tesseract(image_bytes, "tam")
+        tesseract_lines = hindi_lines + tamil_lines
+        logger.debug(f"Tesseract extracted lines: {len(tesseract_lines)}")
+
         # Detect PII
         pii_detector = PIIDetector()
-        pii_fields = pii_detector.detect_pii(blocks)
+        pii_fields = pii_detector.detect_pii(blocks, tesseract_lines)
 
         # Mask image
         masker = ImageMasker()
