@@ -7,3 +7,4 @@ redis==5.0.8
 python-dotenv==1.0.1
 pytest==8.3.2
 loguru==0.7.2
+langdetect
