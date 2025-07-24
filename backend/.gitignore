@@ -46,3 +46,4 @@ dist/
 # OS/system files
 .DS_Store
 Thumbs.db
+command.txt
